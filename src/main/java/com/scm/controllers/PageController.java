@@ -25,6 +25,6 @@ public class PageController {
 	@RequestMapping("/services")
 	public String services(Model model){
 		System.out.println("Services page loaded");
-		return "service";
+		return "services";
 	}
 }
