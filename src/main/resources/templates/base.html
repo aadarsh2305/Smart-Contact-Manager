@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" th:fragment="parentFragment(content, title)" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" th:fragment="parentFragment(content, title, script)" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -15,5 +15,6 @@
      <section th:replace="${content}"></section>
      <!-- Flow bite script -->
     <script src="https://cdn.jsdelivr.net/npm/flowbite@2.5.2/dist/flowbite.min.js"></script>
+    <th:block th:replace="${script}"></th:block>
 </body>
 </html>

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" th:replace="~{base::parentFragment(~{::#content}, ~{::title})}">
+<html lang="en" th:replace="~{base::parentFragment(~{::#content}, ~{::title}, ~{::script})}">
 <head>
     <title>About Page</title>
 </head>
@@ -9,5 +9,8 @@
         <h2>About page</h2>
         <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quaerat, ipsum.</p>
     </section>
+    <script>console.log("About Script tag");</script>
+    <script>console.log("About Script tag 2");</script>
+    <script>console.log("About Script tag 3");</script>
 </body>
 </html>
