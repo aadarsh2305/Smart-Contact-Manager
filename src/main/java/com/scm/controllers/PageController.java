@@ -17,14 +17,32 @@ public class PageController {
 	}
 
 	@RequestMapping("/about")
-	public String about(Model model){
+	public String about(){
 		System.out.println("About page loaded");
 		return "about";
 	}
 	
 	@RequestMapping("/services")
-	public String services(Model model){
+	public String services(){
 		System.out.println("Services page loaded");
 		return "services";
+	}
+
+	@RequestMapping("/contact")
+	public String contact(){
+		System.out.println("Contact page loaded");
+		return "contact";
+	}
+
+	@RequestMapping("/login")
+	public String login(){
+		System.out.println("login page loaded");
+		return "login";
+	}
+
+	@RequestMapping("/register")
+	public String register(){
+		System.out.println("register page loaded");
+		return "register";
 	}
 }
