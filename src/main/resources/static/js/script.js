@@ -6,28 +6,39 @@ changeTheme();
 // todo theme
 function changeTheme() {
     // set to webpage
-    document.querySelector('html').classList.add(currenTheme);
+    changePageTheme(currenTheme, currenTheme);
 
     // set the listener to change theme button
     const changeThemeButton = document.querySelector("#theme_change_button");
-    changeThemeButton.addEventListener("click", ()=>{
+
+    // Initial button text
+    changeThemeButton.querySelector('span').textContent = currenTheme === "light" ? "Dark" : "Light";
+
+    changeThemeButton.addEventListener("click", () => {
         console.log("Button clicked");
         const oldTheme = currenTheme;
 
-        if(currenTheme === "dark"){
-            currenTheme="light";
-        }else{
-            currenTheme="dark";
-        }
+        // Toggle the theme
+        currenTheme = currenTheme === "dark" ? "light" : "dark";
 
-        // update in local storage first the changed theme for next time
-        setTheme(currenTheme);
-        //remove old theme
-        document.querySelector('html').classList.remove(oldTheme);  
-        //add new theme
-        document.querySelector('html').classList.add(currenTheme);
+        changePageTheme(currenTheme, oldTheme);
 
     });
+}
+
+// change current page theme
+function changePageTheme(theme, oldTheme){
+    
+    // Update in local storage
+    setTheme(currenTheme);
+        
+    // Remove old theme and add new theme
+    document.querySelector('html').classList.remove(oldTheme);  
+    document.querySelector('html').classList.add(currenTheme);
+    
+    // Update button text after theme change
+    document.querySelector('#theme_change_button')
+    .querySelector('span').textContent = theme === "light" ? "Dark" : "Light";
 }
 
 //Set theme to local storage
@@ -37,6 +48,6 @@ function setTheme(theme) {
 
 // Get theme from local storage
 function getTheme() {
-    const storedTheme = localStorage.getItem("theme");
-    return storedTheme ? storedTheme : "light";
+  const storedTheme = localStorage.getItem("theme");
+  return storedTheme ? storedTheme : "light";
 }
