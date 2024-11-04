@@ -1,7 +1,11 @@
 console.log("script loaded");
 
 let currenTheme = getTheme();
-changeTheme();
+
+document.addEventListener('DOMContentLoaded',()=>{
+    changeTheme();
+});
+
 
 // todo theme
 function changeTheme() {
