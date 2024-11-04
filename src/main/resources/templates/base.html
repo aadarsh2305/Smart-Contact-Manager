@@ -23,13 +23,15 @@
       referrerpolicy="no-referrer"
     />
   </head>
-  <body class="h-screen w-full dark:bg-gray-900 dark:text-white">
+  <body class="h-screen w-full dark:bg-gray-900 bg-gray-100 dark:text-white">
     <!-- Navbar -->
     <div th:replace="navbar :: navbar"></div>
     <!-- Main Content Here -->
     <div class="p-4">
       <section th:replace="${content}"></section>
     </div>
+    <!-- Footer -->
+    <!-- <footer class="p-4">Powered by Aadarsh</footer> -->
     <!-- Flow bite script -->
     <script src="https://cdn.jsdelivr.net/npm/flowbite@2.5.2/dist/flowbite.min.js"></script>
     <script th:src="@{'/js/script.js'}"></script>
