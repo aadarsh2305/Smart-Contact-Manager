@@ -31,11 +31,10 @@ public class Contact {
     private String websiteLink;
     private String linkedinLink;
 
-    // Many social links user is having
     @OneToMany(mappedBy = "contact", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true )
     private List<SocialLink> links = new ArrayList<>();
 
     // Mapping with User
-    @ManyToOne 
+    @ManyToOne
     private User user;
 }
