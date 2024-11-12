@@ -10,8 +10,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.scm.entities.User;
+import com.scm.exception.Message;
+import com.scm.exception.MessageType;
 import com.scm.forms.UserForm;
 import com.scm.services.UserService;
+
+import jakarta.servlet.http.HttpSession;
 
 @Controller
 public class PageController {
@@ -67,22 +71,35 @@ public class PageController {
 
 	// Processing Register page	
 	@PostMapping("/do-register")
-	public String processRegister(@ModelAttribute UserForm userForm){
+	public String processRegister(@ModelAttribute UserForm userForm, HttpSession session){
 		System.out.println("processRegister method called");
 		System.out.println(userForm);
 
 		// UserForm -> User -> save to database
-		User user = User.builder()
-		.name(userForm.getName())
-		.email(userForm.getEmail())
-		.password(userForm.getPassword())
-		.phoneNumber(userForm.getPhoneNumber())
-		.about(userForm.getAbout())
-		.profilePic("https://aadarsh-folio.vercel.app/assets/pngtree-user-profile-avatar-png-image_10211467-DxoXaHBV.png")
-		.build();
+		// User user = User.builder()
+		// .name(userForm.getName())
+		// .email(userForm.getEmail())
+		// .password(userForm.getPassword())
+		// .phoneNumber(userForm.getPhoneNumber())
+		// .about(userForm.getAbout())
+		// .profilePic("https://aadarsh-folio.vercel.app/assets/pngtree-user-profile-avatar-png-image_10211467-DxoXaHBV.png")
+		// .build();
+
+		User user = new User();
+		user.setName(userForm.getName());
+		user.setEmail(userForm.getEmail());
+		user.setPassword(userForm.getPassword());
+		user.setAbout(userForm.getAbout());
+		user.setPhoneNumber(userForm.getPhoneNumber());
+		user.setProfilePic("https://aadarsh-folio.vercel.app/assets/pngtree-user-profile-avatar-png-image_10211467-DxoXaHBV.png");
+
 		userService.save(user);
 		// Fetch the data
 		System.out.println("usersaved from processRegister method:: USER :: "+user);
+
+		Message message = Message.builder().content("Registration Successful").type(MessageType.green).build();
+
+		session.setAttribute("message", message);
 		
 		return "redirect:/register";
 	}
