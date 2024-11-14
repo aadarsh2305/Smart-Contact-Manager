@@ -7,6 +7,7 @@ import java.util.UUID;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.scm.entities.User;
@@ -18,6 +19,9 @@ public class UserServiceImpl implements UserService{
 
     @Autowired
     private UserRepo userRepo;
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
     // Logger for logging
     private Logger logger = LoggerFactory.getLogger(this.getClass());
 
@@ -26,6 +30,8 @@ public class UserServiceImpl implements UserService{
         String userId = UUID.randomUUID().toString();
         System.out.println("=======================================" + userId +"===========================================");
         user.setUserId(userId);
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
+        user.setRoleList(List.of("ROLE_NORMAL"));
         return userRepo.save(user);
     }
 
