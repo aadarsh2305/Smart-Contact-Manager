@@ -11,6 +11,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.scm.entities.User;
+import com.scm.exception.AppConstants;
 import com.scm.exception.ResourceNotFoundException;
 import com.scm.repositories.UserRepo;
 
@@ -31,7 +32,7 @@ public class UserServiceImpl implements UserService{
         System.out.println("=======================================" + userId +"===========================================");
         user.setUserId(userId);
         user.setPassword(passwordEncoder.encode(user.getPassword()));
-        user.setRoleList(List.of("ROLE_NORMAL"));
+        user.setRoleList(List.of(AppConstants.ROLE_USER));
         return userRepo.save(user);
     }
 
