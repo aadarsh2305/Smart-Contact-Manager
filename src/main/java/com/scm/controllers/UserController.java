@@ -2,22 +2,21 @@ package com.scm.controllers;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 
 @Controller
 @RequestMapping("/user")
 public class UserController {
 
-    // Dashboard page 
-    @GetMapping("/dashboard")
+    // Dashboard page: Support both GET and POST
+    @RequestMapping(value = "/dashboard", method = {RequestMethod.GET, RequestMethod.POST})
     public String userDashboard() {
         return "user/dashboard";
     }
 
     // User profile page
-    // Dashboard page 
-    @GetMapping("/profile")
+    @RequestMapping(value = "/profile", method = RequestMethod.GET)
     public String userProfile() {
         return "user/profile";
     }
