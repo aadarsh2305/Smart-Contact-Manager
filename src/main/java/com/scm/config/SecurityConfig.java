@@ -33,6 +33,9 @@ public class SecurityConfig {
     @Autowired
     private SecurityCustomUserDetailService userDetailService;
 
+    @Autowired
+    private OAuthAuthenicationSuccessHandler handler;
+
     // Database se user nikal rahe h for checking and login
     @Bean
     public AuthenticationProvider authenticationProvider() {
@@ -92,6 +95,12 @@ public class SecurityConfig {
         httpSecurity.logout(logout -> {
             logout.logoutUrl("/logout");
             logout.logoutSuccessUrl("/login?logout=true");
+        });
+
+        // oauth configuration
+        httpSecurity.oauth2Login(oauth -> {
+            oauth.loginPage("/login");
+            oauth.successHandler(handler);
         });
 
         return httpSecurity.build();
