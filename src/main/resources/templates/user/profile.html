@@ -1,14 +1,29 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    <h1>This is user profile page</h1>
-    <h1 th:text="${loggedInUser.name}"></h1>
-    <h1 th:text="${loggedInUser.email}"></h1>
+<html
+  lang="en"
+  th:replace="~{base::parentFragment(~{::#content}, ~{::title}, ~{})}"
+>
+  <head>
+    <title data-th-text="${loggedInUser.name}+ ' | SCM'">Profile Page</title>
+  </head>
+  <body>
+    <div id="content">
+      <!-- Sidebar if user logged in  -->
+      <div th:if="${loggedInUser}">
+        <div th:replace="~{user/sidebar::sidebar}"></div>
+      </div>
 
-</body>
+      <!-- Main content -->
+      <div class="sm:pl-64 pt-20" style="height: 1000px">
+        <div class="flex justify-center flex-col items-center">
+          <h1 class="text-5xl">Welcome to Profile page</h1>
+          <p>
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Quaerat,
+            ipsum.
+          </p>
+        </div>
+      </div>
+    </div>
+  </body>
 </html>
+

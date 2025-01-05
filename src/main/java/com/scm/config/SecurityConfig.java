@@ -69,7 +69,7 @@ public class SecurityConfig {
                     .loginPage("/login")
                     .loginProcessingUrl("/authenticate")
                     // .defaultSuccessUrl("/user/dashboard",true)
-                    .successForwardUrl("/user/dashboard")
+                    .successForwardUrl("/user/profile")
                     // .failureUrl("/login?error=true")
                     // .failureForwardUrl("/login?error=true")
                     .usernameParameter("email")
@@ -91,16 +91,18 @@ public class SecurityConfig {
         });
 
         httpSecurity.csrf(AbstractHttpConfigurer::disable);
-        
-        httpSecurity.logout(logout -> {
-            logout.logoutUrl("/logout");
-            logout.logoutSuccessUrl("/login?logout=true");
-        });
+
 
         // oauth configuration
         httpSecurity.oauth2Login(oauth -> {
             oauth.loginPage("/login");
             oauth.successHandler(handler);
+        });
+
+                
+        httpSecurity.logout(logout -> {
+            logout.logoutUrl("/logout");
+            logout.logoutSuccessUrl("/login?logout=true");
         });
 
         return httpSecurity.build();

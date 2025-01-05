@@ -14,7 +14,7 @@
       rel="stylesheet"
     />
     <link rel="stylesheet" data-th-href="@{'/css/output.css'}" />
-    <link rel="stylesheet" data-th-href="@{'/css/style.css'}">
+    <link rel="stylesheet" data-th-href="@{'/css/style.css'}" />
     <!-- font awesome cdn -->
     <link
       rel="stylesheet"
@@ -26,7 +26,15 @@
   </head>
   <body class="h-screen w-full dark:bg-gray-900 bg-gray-100 dark:text-white">
     <!-- Navbar -->
-    <div th:replace="navbar :: navbar"></div>
+    <!-- When user is logged in  -->
+    <div th:if="${loggedInUser}">
+      <div th:replace="~{user/user_navbar::user-navbar}"></div>
+    </div>
+    <!-- When user is not logged in -->
+    <div th:unless="${loggedInUser}">
+      <div th:replace="~{navbar :: navbar}"></div>
+    </div>
+
     <!-- Main Content Here -->
     <div class="p-4">
       <section th:replace="${content}"></section>
