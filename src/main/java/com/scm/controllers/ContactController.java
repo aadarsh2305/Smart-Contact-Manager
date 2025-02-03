@@ -1,5 +1,7 @@
 package com.scm.controllers;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
@@ -16,6 +18,7 @@ import com.scm.exception.Message;
 import com.scm.exception.MessageType;
 import com.scm.forms.ContactForm;
 import com.scm.services.ContactService;
+import com.scm.services.ImageService;
 import com.scm.services.UserService;
 
 import jakarta.servlet.http.HttpSession;
@@ -24,6 +27,11 @@ import jakarta.validation.Valid;
 @Controller
 @RequestMapping("/user/contacts")
 public class ContactController {
+
+    private Logger logger = LoggerFactory.getLogger(ContactController.class);
+
+    @Autowired
+    private ImageService imageService;
 
     @Autowired
     private ContactService contactService;
@@ -46,6 +54,8 @@ public class ContactController {
 
         // checking validation
         if (result.hasErrors()) {
+
+            result.getAllErrors().forEach(error -> logger.info(error.toString()));
             session.setAttribute("message", Message.builder()
             .content("Please correct the following errors")
             .type(MessageType.red)
@@ -55,6 +65,9 @@ public class ContactController {
 
         String username = Helper.getEmailOfLoggedInUser(authentication);
         User user = userservice.getUserByEmail(username);
+
+        // Image processing 
+        String fileURL = imageService.uploadImage(contactForm.getContactImage());
 
         Contact contact = new Contact();
         contact.setName(contactForm.getName());
@@ -66,8 +79,9 @@ public class ContactController {
         contact.setUser(user);
         contact.setLinkedinLink(contactForm.getLinkedInLink());
         contact.setWebsiteLink(contactForm.getWebsiteLink());
+        contact.setPicture(fileURL);
         // process data or save data 
-        contactService.save(contact);
+        // contactService.save(contact);
         System.out.println(contactForm);
 
         session.setAttribute("message", Message.builder()
